@@ -17,7 +17,6 @@ class NewItem(Resource):
         restaurant_name = data["restaurant_name"]
         restaurant = RestaurantModel.find_by_restaurant_name(restaurant_name)
         item = ItemModel(item_name, restaurant.id)
-        item.ordered = True
 
         try:
             item.save_to_db()
