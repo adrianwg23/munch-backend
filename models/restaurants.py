@@ -16,6 +16,7 @@ class RestaurantModel(db.Model):
         return {"restaurant_id": self.id, "restaurant_name": self.restaurant_name,
                 "items": [item.json() for item in self.items]}
 
+
     @classmethod
     def find_by_restaurant_name(cls, restaurant_name):
         return cls.query.filter_by(restaurant_name=restaurant_name).first()
