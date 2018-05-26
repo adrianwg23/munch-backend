@@ -5,7 +5,7 @@ class RestaurantModel(db.Model):
     __tablename__ = "restaurants"
 
     id = db.Column(db.Integer, primary_key=True)
-    restaurant_name = db.Column(db.String)
+    restaurant_name = db.Column(db.String, unique=True)
 
     items = db.relationship("ItemModel", lazy="dynamic")
 
