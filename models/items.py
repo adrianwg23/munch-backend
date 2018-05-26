@@ -7,8 +7,8 @@ class ItemModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     item_name = db.Column(db.String)
 
-    restaurant_name = db.Column(db.Integer, db.ForeignKey("restaurants.restaurant_name"))
-    user = db.relationship("RestaurantModel")
+    restaurant_name = db.Column(db.String, db.ForeignKey("restaurants.restaurant_name"))
+    restaurant = db.relationship("RestaurantModel")
 
     def __init__(self, item_name, restaurant_name):
         self.item_name = item_name
