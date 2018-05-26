@@ -5,7 +5,7 @@ from flask_cors import CORS
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
 
-from resources.items import NewItem, ItemOrder
+from resources.items import NewItem, ItemOrder, ItemOrderList
 from resources.restaurants import NewRestaurant, Restaurants
 from resources.user import UserRegister, UserLogin, UserList
 
@@ -17,9 +17,9 @@ app.config["PROPAGATE_EXCEPTIONS"] = True
 api = Api(app)
 
 
-# @app.before_first_request
-# def create_tables():
-#     db.create_all()
+@app.before_first_request
+def create_tables():
+    db.create_all()
 
 
 app.config["JWT_SECRET_KEY"] = '\x9a\xf5\xba.qTE<e\xd2\xd4\x1c\x13\xa2\x83\x8a\x90\xbb\xfe\xb5%\xd0\xa1#'
@@ -34,6 +34,7 @@ api.add_resource(ItemOrder, "/item/order")
 api.add_resource(NewRestaurant, "/restaurant/new")
 api.add_resource(Restaurants, '/restaurants')
 api.add_resource(UserList, "/users")
+api.add_resource(ItemOrderList, '/items/<int:restaurant_id>')
 
 
 if __name__ == "__main__":

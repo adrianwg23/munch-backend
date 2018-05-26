@@ -18,7 +18,7 @@ class NewRestaurant(Resource):
         restaurant = RestaurantModel(data["restaurant_name"])
         try:
             restaurant.save_to_db()
-            return {"message": "Restaurant created successfully"}, 201
+            return {"restaurant_id": restaurant.id}, 201
         except:
             return {"message": "An error occurred creating the restaurant"}, 500
 

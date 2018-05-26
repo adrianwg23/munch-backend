@@ -17,6 +17,7 @@ class NewItem(Resource):
         restaurant_name = data["restaurant_name"]
         restaurant = RestaurantModel.find_by_restaurant_name(restaurant_name)
         item = ItemModel(item_name, restaurant.id)
+        item.ordered = True
 
         try:
             item.save_to_db()
@@ -36,7 +37,20 @@ class ItemOrder(Resource):
 
         if item is None:
             return {"message": "Item or restaurant does not exist"}
+        else:
+            item.ordered = True
+            item.save_to_db()
 
         return {"message": "Success"}
+
+
+class ItemOrderList(Resource):
+    def get(self, restaurant_id):
+        ordered_items =[]
+        for item in ItemModel.query.filter_by(restaurant_id=restaurant_id).all():
+            if item.is_item_ordered():
+                ordered_items.append(item)
+
+        return {"ordered_items": [item.json() for item in ordered_items]}, 404
 
 
